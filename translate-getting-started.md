@@ -21,7 +21,7 @@ API keys에 대한 더 많은 정보와 API Keys 문서를 보기 위해서입�
 https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/RiotSchmick?api_key=<key>
 ```
 
-<key> 부분을 당신의 API key로 바꿔야 한다는 사실을 잊지마세요.
+\<key\> 부분을 당신의 API key로 바꿔야 한다는 사실을 잊지마세요.
 더 많은 정보와 예제는, API Reference 페이지에서 API 실행을 시도하세요.
 
 
@@ -35,7 +35,7 @@ Hello, World!
 curl --request GET 'https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/RiotSchmick?api_key=<key>' --include
 ```
 
-<key> 부분을 당신의 API key로 바꿔야 한다는 사실을 잊지마세요.
+\<key\> 부분을 당신의 API key로 바꿔야 한다는 사실을 잊지마세요.
 cURL은 없는데 이걸 시도해 보고 싶으시다면 그저 브라우저에 복붙해 넣으세요.
 
 
