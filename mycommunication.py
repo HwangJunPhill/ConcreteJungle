@@ -17,8 +17,9 @@ def inputUrlreturnDict(url):
 
     return dict
 
-def getChampionName(id):
-    url = "https://global.api.riotgames.com/api/lol/static-data/KR/v1.2/champion/{}?api_key=RGAPI-37384fa5-73b5-45ac-aeca-2c72560b52d3".format(id)
+def getChampionInfo(id, apiKey):
+    list = []
+    url = "https://kr.api.riotgames.com/lol/static-data/v3/champions/{}?locale=ko_KR&tags=all&api_key={}".format(id, apiKey)
 
     req = urllib.request.Request(url)
 
@@ -28,10 +29,12 @@ def getChampionName(id):
         return e
 
     info = info.decode(encoding='UTF-8')
-    info = urllib.request.unquote(info)
     info = json.loads(info)
 
-    return info['name']
+    list.append(info['name'])
+    list.append(info['tags'])
+
+    return list
 
 def tierDict(url):
     req = urllib.request.Request(url)
@@ -69,4 +72,20 @@ def recnetDict(url):
     dict = urllib.request.unquote(dict)
 
     dict = json.loads(dict)
+
     return dict
+
+
+if __name__ == '__main__':
+    req = urllib.request.Request("https://kr.api.riotgames.com/lol/static-data/v3/champions?locale=ko_KR&tags=tags&dataById=false&api_key=RGAPI-5fd912d9-7bb2-4910-b6fe-6da1f9277e00")
+
+    try:
+        dict = urllib.request.urlopen(req).read()
+    except urllib.error.HTTPError as e:
+        pass
+
+    dict = dict.decode(encoding='UTF-8')
+    dict = urllib.request.unquote(dict)
+
+    dict = json.loads(dict)
+
