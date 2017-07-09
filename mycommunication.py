@@ -45,6 +45,10 @@ def tierDict(url):
         return e
 
     dict = dict.decode(encoding='UTF-8')
+
+    if dict == '[]':
+        return 'unranked'
+
     dict = dict[1:-1]
     dict = urllib.request.unquote(dict)
 
