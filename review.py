@@ -1,13 +1,19 @@
 def review(list):
-    review = []
 
     for x in range(len(list)):
         string = ""
+
+        if list[x][3] == "Perfect":
+            list[x][3] == 1000000
+
+        if list[x][4] < 20:
+            string = "챔피언 플레이 수가 너무 적습니다."
+
         #전사
         #
-        if list[x][0] == "가렌":
+        elif list[x][0] == "가렌":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "티모도 찢을 실력이군요. 짝짝짝."
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -27,13 +33,13 @@ def review(list):
                 if list[x][3] >= 3:
                     string = "극딜 가렌 매드무비가 롤을 망쳤음. "
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "왜 점멸 Q로 탱커물다가 짤려놓고 아군 탓 하는거죠?"
+                    string = "도대체 왜 점멸 Q로 무리해서 들어가서 짤려놓고 아군 탓 하는거죠?"
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "왜 W 쿨 도는걸 본적이 없지.."
 
         elif list[x][0] == "갱플랭크":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -62,7 +68,7 @@ def review(list):
 
         elif list[x][0] == "그라가스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -91,7 +97,7 @@ def review(list):
 
         elif list[x][0] == "나르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -120,7 +126,7 @@ def review(list):
 
         elif list[x][0] == "나서스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -150,7 +156,7 @@ def review(list):
         #
         elif list[x][0] == "다리우스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "진정한 탑솔러를 목도하라."
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -176,7 +182,7 @@ def review(list):
 
         elif list[x][0] == "다이애나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -205,7 +211,7 @@ def review(list):
 
         elif list[x][0] == "럼블":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -234,7 +240,7 @@ def review(list):
 
         elif list[x][0] == "레넥톤":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -263,7 +269,7 @@ def review(list):
 
         elif list[x][0] == "렉사이":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -292,7 +298,7 @@ def review(list):
 
         elif list[x][0] == "리신":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -321,7 +327,7 @@ def review(list):
 
         elif list[x][0] == "리븐":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -350,7 +356,7 @@ def review(list):
 
         elif list[x][0] == "모데카이저":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -379,7 +385,7 @@ def review(list):
 
         elif list[x][0] == "문도 박사":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -408,7 +414,7 @@ def review(list):
 
         elif list[x][0] == "바이":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -437,7 +443,7 @@ def review(list):
 
         elif list[x][0] == "볼리베어":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -467,7 +473,7 @@ def review(list):
         #
         elif list[x][0] == "쉬바나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "한타때 이니쉬 진짜 오지네요. "
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -493,7 +499,7 @@ def review(list):
 
         elif list[x][0] == "스카너":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -522,7 +528,7 @@ def review(list):
 
         elif list[x][0] == "신 짜오":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -551,7 +557,7 @@ def review(list):
 
         elif list[x][0] == "아트록스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -580,7 +586,7 @@ def review(list):
 
         elif list[x][0] == "야스오":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -609,7 +615,7 @@ def review(list):
 
         elif list[x][0] == "오공":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -638,7 +644,7 @@ def review(list):
 
         elif list[x][0] == "올라프":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -667,7 +673,7 @@ def review(list):
 
         elif list[x][0] == "요릭":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -696,7 +702,7 @@ def review(list):
 
         elif list[x][0] == "우디르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -725,7 +731,7 @@ def review(list):
 
         elif list[x][0] == "워윅":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -754,7 +760,7 @@ def review(list):
 
         elif list[x][0] == "이렐리아":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -783,7 +789,7 @@ def review(list):
 
         elif list[x][0] == "일라오이":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -812,7 +818,7 @@ def review(list):
 
         elif list[x][0] == "잭스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -841,7 +847,7 @@ def review(list):
 
         elif list[x][0] == "제이스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -870,7 +876,7 @@ def review(list):
 
         elif list[x][0] == "카밀":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -899,7 +905,7 @@ def review(list):
 
         elif list[x][0] == "케일":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -928,7 +934,7 @@ def review(list):
 
         elif list[x][0] == "클레드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -957,7 +963,7 @@ def review(list):
 
         elif list[x][0] == "트런들":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -986,7 +992,7 @@ def review(list):
 
         elif list[x][0] == "트린다미어":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1015,7 +1021,7 @@ def review(list):
 
         elif list[x][0] == "판테온":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1044,7 +1050,7 @@ def review(list):
 
         elif list[x][0] == "피오라":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1073,7 +1079,7 @@ def review(list):
 
         elif list[x][0] == "헤카림":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1106,7 +1112,7 @@ def review(list):
         #
         elif list[x][0] == "녹턴":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "불끄면 선취점"
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -1132,7 +1138,7 @@ def review(list):
 
         elif list[x][0] == "니달리":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1161,7 +1167,7 @@ def review(list):
 
         elif list[x][0] == "렝가":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1190,7 +1196,7 @@ def review(list):
 
         elif list[x][0] == "르블랑":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1220,13 +1226,13 @@ def review(list):
         #
         elif list[x][0] == "마스터 이":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "알파 한번에 cc기 세개 궁 두개 피함."
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "그래도 방템 한두개 감."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "정글 만 돔 → 카정당함 → 열심히 정글만 돔 → 적 정글 전장의 화신 → 그러나 아군 캐리로 승리 → 적군 싸우는거 정글몹 먹으면서 구경함."
+                    string = "정글 만 돔 → 카정당함 → 열심히 정글만 돔 → 적 정글 전장의 화신 → 그러나 아군 라인전 승리 → 적군끼리 전챗으로 싸우는거 정글몹 먹으면서 구경 → 게임 폭파"
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
@@ -1246,7 +1252,7 @@ def review(list):
 
         elif list[x][0] == "샤코":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1275,7 +1281,7 @@ def review(list):
 
         elif list[x][0] == "아칼리":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1304,7 +1310,7 @@ def review(list):
 
         elif list[x][0] == "에코":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1333,7 +1339,7 @@ def review(list):
 
         elif list[x][0] == "이블린":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1363,11 +1369,11 @@ def review(list):
         #
         elif list[x][0] == "제드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "비술의 검 없어진게 아쉽네요ㅠ"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "히드라 간다음에 스플릿함."
+                    string = "스플릿 한다고 히드라 산다음에 미드 절대 안가고 라인만 쭉쭉밀다가 넥서스 까지 밈."
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "원딜 짜르고 같이 죽음."
 
@@ -1389,7 +1395,7 @@ def review(list):
 
         elif list[x][0] == "카사딘":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1419,7 +1425,7 @@ def review(list):
         #
         elif list[x][0] == "카직스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "한타 6단 점프가 취미."
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -1446,13 +1452,13 @@ def review(list):
         #
         elif list[x][0] == "카타리나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "펜타여신"
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "한타여신"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "순보로 들어가서 어그로 끌고 존야 쓰면 아군이 마무리해줌."
+                    string = "카타들고 순보로 선진입하고 짤리는 트롤."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
@@ -1460,7 +1466,7 @@ def review(list):
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "혼자 멀찍이 들어감 → 물려서 짤림 → 근처에 도망가던 아군한테 왜 순보 사거리 안주냐고 욕함"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "칼 주우면 순보 쿨 줄어들어요."
+                    string = "칼 주우면 순보 쿨 줄어들어요. 아 알아요? 알면 좀 응용해봐요; "
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
@@ -1472,7 +1478,7 @@ def review(list):
 
         elif list[x][0] == "탈론":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1501,7 +1507,7 @@ def review(list):
 
         elif list[x][0] == "피즈":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1533,7 +1539,7 @@ def review(list):
         #마법사
         elif list[x][0] == "라이즈":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1562,7 +1568,7 @@ def review(list):
 
         elif list[x][0] == "럭스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1591,7 +1597,7 @@ def review(list):
 
         elif list[x][0] == "리산드라":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1620,7 +1626,7 @@ def review(list):
 
         elif list[x][0] == "말자하":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1649,7 +1655,7 @@ def review(list):
 
         elif list[x][0] == "모르가나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1678,7 +1684,7 @@ def review(list):
 
         elif list[x][0] == "베이가":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1707,7 +1713,7 @@ def review(list):
 
         elif list[x][0] == "벨코즈":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1736,7 +1742,7 @@ def review(list):
 
         elif list[x][0] == "브랜드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1765,7 +1771,7 @@ def review(list):
 
         elif list[x][0] == "블라디미르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1794,7 +1800,7 @@ def review(list):
 
         elif list[x][0] == "빅토르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1823,7 +1829,7 @@ def review(list):
 
         elif list[x][0] == "스웨인":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1852,7 +1858,7 @@ def review(list):
 
         elif list[x][0] == "신드라":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1881,7 +1887,7 @@ def review(list):
 
         elif list[x][0] == "아리":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1910,7 +1916,7 @@ def review(list):
 
         elif list[x][0] == "아우렐리온 솔":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1939,7 +1945,7 @@ def review(list):
 
         elif list[x][0] == "아지르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -1969,7 +1975,7 @@ def review(list):
         #
         elif list[x][0] == "애니":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "최소 3인궁"
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -1995,7 +2001,7 @@ def review(list):
 
         elif list[x][0] == "애니비아":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2024,7 +2030,7 @@ def review(list):
 
         elif list[x][0] == "엘리스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2053,7 +2059,7 @@ def review(list):
 
         elif list[x][0] == "오리아나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2082,7 +2088,7 @@ def review(list):
 
         elif list[x][0] == "자이라":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2111,7 +2117,7 @@ def review(list):
 
         elif list[x][0] == "제라스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2140,7 +2146,7 @@ def review(list):
 
         elif list[x][0] == "직스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2169,7 +2175,7 @@ def review(list):
 
         elif list[x][0] == "카르마":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2199,7 +2205,7 @@ def review(list):
         #
         elif list[x][0] == "카서스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "가게 두어라."
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -2225,7 +2231,7 @@ def review(list):
 
         elif list[x][0] == "카시오페아":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2254,7 +2260,7 @@ def review(list):
 
         elif list[x][0] == "케넨":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2283,7 +2289,7 @@ def review(list):
 
         elif list[x][0] == "탈리야":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2313,7 +2319,7 @@ def review(list):
         #
         elif list[x][0] == "트위스티드 페이트":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     string = "대충 Q 날려도 적군 두명 맞춤."
                 elif list[x][3] >= 2 and list[x][3] < 3:
@@ -2339,7 +2345,7 @@ def review(list):
 
         elif list[x][0] == "피들스틱":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2368,7 +2374,7 @@ def review(list):
 
         elif list[x][0] == "하이머딩거":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2399,7 +2405,7 @@ def review(list):
         #서포터
         elif list[x][0] == "나미":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2428,7 +2434,7 @@ def review(list):
 
         elif list[x][0] == "누누":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2457,7 +2463,7 @@ def review(list):
 
         elif list[x][0] == "라칸":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2486,7 +2492,7 @@ def review(list):
 
         elif list[x][0] == "룰루":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2515,7 +2521,7 @@ def review(list):
 
         elif list[x][0] == "바드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2544,7 +2550,7 @@ def review(list):
 
         elif list[x][0] == "브라움":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2573,7 +2579,7 @@ def review(list):
 
         elif list[x][0] == "소나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2602,7 +2608,7 @@ def review(list):
 
         elif list[x][0] == "소라카":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2631,7 +2637,7 @@ def review(list):
 
         elif list[x][0] == "쓰레쉬":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2660,7 +2666,7 @@ def review(list):
 
         elif list[x][0] == "아이번":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2689,7 +2695,7 @@ def review(list):
 
         elif list[x][0] == "잔나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2718,7 +2724,7 @@ def review(list):
 
         elif list[x][0] == "질리언":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2747,7 +2753,7 @@ def review(list):
 
         elif list[x][0] == "타릭":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2776,7 +2782,7 @@ def review(list):
 
         elif list[x][0] == "탐 켄치":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2807,7 +2813,7 @@ def review(list):
         #탱커
         elif list[x][0] == "갈리오":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2836,7 +2842,7 @@ def review(list):
 
         elif list[x][0] == "노틸러스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2865,7 +2871,7 @@ def review(list):
 
         elif list[x][0] == "람머스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2894,7 +2900,7 @@ def review(list):
 
         elif list[x][0] == "레오나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2923,7 +2929,7 @@ def review(list):
 
         elif list[x][0] == "마오카이":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2952,7 +2958,7 @@ def review(list):
 
         elif list[x][0] == "말파이트":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -2981,7 +2987,7 @@ def review(list):
 
         elif list[x][0] == "블리츠크랭크":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3010,7 +3016,7 @@ def review(list):
 
         elif list[x][0] == "뽀삐":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3039,7 +3045,7 @@ def review(list):
 
         elif list[x][0] == "사이온":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3068,7 +3074,7 @@ def review(list):
 
         elif list[x][0] == "세주아니":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3097,7 +3103,7 @@ def review(list):
 
         elif list[x][0] == "신지드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3126,7 +3132,7 @@ def review(list):
 
         elif list[x][0] == "쉔":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3155,7 +3161,7 @@ def review(list):
 
         elif list[x][0] == "아무무":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3184,7 +3190,7 @@ def review(list):
 
         elif list[x][0] == "알리스타":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3213,7 +3219,7 @@ def review(list):
 
         elif list[x][0] == "자르반 4세":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3242,7 +3248,7 @@ def review(list):
 
         elif list[x][0] == "자크":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3271,7 +3277,7 @@ def review(list):
 
         elif list[x][0] == "초가스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3303,7 +3309,7 @@ def review(list):
         #원딜
         elif list[x][0] == "그레이브즈":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3332,7 +3338,7 @@ def review(list):
 
         elif list[x][0] == "드레이븐":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3361,7 +3367,7 @@ def review(list):
 
         elif list[x][0] == "루시안":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3390,7 +3396,7 @@ def review(list):
 
         elif list[x][0] == "미스포츈":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3419,7 +3425,7 @@ def review(list):
 
         elif list[x][0] == "바루스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3448,7 +3454,7 @@ def review(list):
 
         elif list[x][0] == "베인":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3477,7 +3483,7 @@ def review(list):
 
         elif list[x][0] == "시비르":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3506,7 +3512,7 @@ def review(list):
 
         elif list[x][0] == "애쉬":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3533,67 +3539,41 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     pass
 
+        #
         elif list[x][0] == "우르곳":
+            string = "우르곳 하지마"
+            #ㅋ
 
-            if list[x][2] <= 60:
-                if list[x][3] >= 3:
-                    pass
-
-                elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
-                elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
-
-            elif list[x][2] >= 50 and list[x][2] < 60:
-                if list[x][3] >= 3:
-                    pass
-
-                elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
-                elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
-
-            elif list[x][2] < 50:
-                if list[x][3] >= 3:
-                    pass
-
-                elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
-                elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
-
+        #
         elif list[x][0] == "이즈리얼":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "좀 맞추네요. 못 맞추면 사람이 아니지만."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "한타때 면전에다 궁써버리기~"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "이즈로 어떻게 평점이 이따구지?"
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "평생 이 티어에서 이즈 할 운명인듯."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "진짜 님들같은 앞비전 애용가 때문에 비전이 삭제되어 마땅해요."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "E선마 하시는게 좋을 거 같아요. 비전 딜은 빗나가진 않거든요. "
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "이즈로 캐리를 못함?"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "라인에 궁쓰고 미니언 한마리도 못맞춤. 한두번이면 몰라. "
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "비전 때문에 방템 없어도 안 죽을 줄 알죠? 그게 팩트면 덜 죽었겠죠? "
 
         elif list[x][0] == "자야":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3622,7 +3602,7 @@ def review(list):
 
         elif list[x][0] == "진":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3651,7 +3631,7 @@ def review(list):
 
         elif list[x][0] == "징크스":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3680,7 +3660,7 @@ def review(list):
 
         elif list[x][0] == "칼리스타":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3709,7 +3689,7 @@ def review(list):
 
         elif list[x][0] == "케이틀린":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3738,7 +3718,7 @@ def review(list):
 
         elif list[x][0] == "코그모":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3767,7 +3747,7 @@ def review(list):
 
         elif list[x][0] == "코르키":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3796,7 +3776,7 @@ def review(list):
 
         elif list[x][0] == "퀸":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3825,7 +3805,7 @@ def review(list):
 
         elif list[x][0] == "킨드레드":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3854,7 +3834,7 @@ def review(list):
 
         elif list[x][0] == "트리스타나":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3883,7 +3863,7 @@ def review(list):
 
         elif list[x][0] == "트위치":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3912,7 +3892,7 @@ def review(list):
 
         elif list[x][0] == "티모":
 
-            if list[x][2] <= 60:
+            if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
 
@@ -3939,6 +3919,14 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     pass
 
+
         list[x].append(string)
+
+        if list[x][3] == 1000000:
+            list[x][3] == 'Perfect'
+        #list[0][x].append(string)
+
+        #list[0][x].append(string)
+
 
     return list
