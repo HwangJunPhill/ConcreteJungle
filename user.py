@@ -5,7 +5,6 @@ import review
 from urllib import request, parse
 from collections import Counter
 
-
 apiKey = "RGAPI-5fd912d9-7bb2-4910-b6fe-6da1f9277e00"
 
 
@@ -298,49 +297,6 @@ class Summoner:
             elif(self.allData['Vision'] < 15000):
                 self.allReviewString += "리 신인가요? 앞이 보이지 않아도 불편할게 없다면 뭐 냅둘게요. "
                 score += 1
-
-
-                #평타면 가끔 시야때문에 팀원들이랑 싸우지? 그전에 니가 잘 좀 해봐
-                #하타면 설정에서 미니맵 크기라도 최소로 하고 해요. 어차피 어두워서 보이지도 않을거 화면이라도 안가리게
-
-
-        self.allReviewString += "\n총평 : "
-        if(score == 20):
-            if(self.allData['Lane'] == "mid"):
-                self.allReviewString += "오졌다. "
-            elif(self.allData['Lane'] == "top"):
-                self.allReviewString += "탑 캐리. "
-            elif(self.allData['Lane'] == 'bot'):
-                self.allReviewString += "봇이 잘하면 할게 없죠. "
-            elif(self.allData['Lane'] == 'jungle'):
-                self.allReviewString += "협곡갓. "
-
-        elif(score >= 13 and score < 20):
-            if(self.allData['Lane'] == "mid"):
-                self.allReviewString += "제발 상대 cc기랑 니 딜 생각하고 깝쳐. "
-            elif(self.allData['Lane'] == "top"):
-                self.allReviewString += "탑신병자. "
-            elif(self.allData['Lane'] == 'bot'):
-                self.allReviewString += "그렇게 할거면 왜 봇가는지 정말 이해가 안된다. "
-            elif(self.allData['Lane'] == 'jungle'):
-                self.allReviewString += "양심적으로 블루는 미드 줘요. "
-        elif(score >= 7 and score < 13):
-            if(self.allData['Lane'] == "mid"):
-                self.allReviewString += "딱 봐도 두려움 따윈 없는 개씹무리충. "
-            elif(self.allData['Lane'] == "top"):
-                self.allReviewString += "탑에서 좀 내려 옵시다. "
-            elif(self.allData['Lane'] == 'bot'):
-                self.allReviewString += "서로 싸우고 다른라인에 민폐 끼치지 마요. "
-            elif(self.allData['Lane'] == 'jungle'):
-                self.allReviewString += "갱승이라도 안 당하면 다행이지. "
-        elif(score > 0 and score < 7):
-            if(self.allData['Lane'] == "mid" or self.allData['Lane'] == 'top'):
-                self.allReviewString += "이딴 쓰레기같은 실력으로 라인 잡지 마. "
-            elif(self.allData['Lane'] == 'bot'):
-                self.allReviewString += "라인전때 적 더블킬 !을 몇번 보게 될까. "
-            elif(self.allData['Lane'] == 'jungle'):
-                self.allReviewString += "정글몹 >>>> 님. "
-
 
 
         print(self.allReviewString)
