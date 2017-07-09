@@ -2,10 +2,14 @@ import urllib.parse
 import re
 import mycommunication
 import review
+import pymysql
 from urllib import request, parse
 from collections import Counter
 
-apiKey = "RGAPI-5fd912d9-7bb2-4910-b6fe-6da1f9277e00"
+apiKey = "RGAPI-0f10c455-7071-46ec-9e93-0d1a688198bc"
+
+tmp = pymysql.connect(host='localhost', user='root', password='', db='concrete', charset='utf8')
+curs = tmp.cursor()
 
 
 class Summoner:
@@ -24,6 +28,8 @@ class Summoner:
             self.getAll()
             self.allReview()
             self.championReview()
+
+            dat = Database(self.summonerData, self.tier, self.mostArr, self.allData)
         else:
             return
 
@@ -60,7 +66,7 @@ class Summoner:
         i = 0
         print("-2017 시즌 랭크 게임 모스트-")
         mostCountArr = []
-        mostArr = []
+        self.mostArr = []
 
         #랭크 기록 리스트에 챔피언 '이름' 추가, 평점 추가. 모스트 픽 구하기 위해 경기 수 배열에 저장.
         for x in range(len(self.seasonRankData['champions']) -1):
@@ -80,15 +86,22 @@ class Summoner:
         mostCountArr = mostCountArr[0:3]
 
         for x in range(len(mostCountArr)):
-            if(len(mostArr) >= 9):
-                break
             for y in range(len(self.seasonRankData['champions'] )-1):
                 if(mostCountArr[x] == self.seasonRankData['champions'][y]['stats']['totalSessionsPlayed']):
-                    mostArr.append(mycommunication.getChampionInfo(self.seasonRankData['champions'][y]['id'], apiKey)[0])
-                    mostArr.append(round((self.seasonRankData['champions'][y]['stats']['totalChampionKills'] + self.seasonRankData['champions'][y]['stats']['totalAssists']) / self.seasonRankData['champions'][y]['stats']['totalDeathsPerSession'], 2))
-                    mostArr.append(round(self.seasonRankData['champions'][y]['stats']['totalSessionsWon']/self.seasonRankData['champions'][y]['stats']['totalSessionsPlayed']*100))
+                    self.mostArr.append(mycommunication.getChampionInfo(self.seasonRankData['champions'][y]['id'], apiKey)[0])
+                    self.mostArr.append(round(self.seasonRankData['champions'][y]['stats']['totalSessionsWon'] / self.seasonRankData['champions'][y]['stats']['totalSessionsPlayed'] * 100))
+                    self.mostArr.append(round((self.seasonRankData['champions'][y]['stats']['totalChampionKills'] + self.seasonRankData['champions'][y]['stats']['totalAssists']) / self.seasonRankData['champions'][y]['stats']['totalDeathsPerSession'], 2))
+                    if (len(self.mostArr) >= 9):
+                        break
 
-        print(mostArr)
+        if (len(self.mostArr) < 9):
+            for x in range(6):
+                self.mostArr.append('-')
+                if (len(self.mostArr) >= 9):
+                    break
+
+
+        print(self.mostArr)
 
 
     def getTier(self):
@@ -131,13 +144,13 @@ class Summoner:
         self.visionAvg = self.visionAvg / len(self.recendData['games'])
         self.totemChanged = round((self.totemChanged / len(self.recendData['games'])) * 100)
 
+        self.allData['W'] = self.totalRank['stats']['totalSessionsWon']
+        self.allData['L'] = self.totalRank['stats']['totalSessionsLost']
         self.allData['Rate'] = round(self.totalRank['stats']['totalSessionsWon']/self.totalRank['stats']['totalSessionsPlayed'] * 100)
         self.allData['Vision'] = self.visionAvg
         self.allData['Score'] = round(((self.totalRank['stats']['totalChampionKills'] + self.totalRank['stats']['totalAssists']) / self.totalRank['stats']['totalDeathsPerSession']), 2)
         self.allData['Lane'] = self.position
         self.allData['Totem'] = self.totemChanged
-
-        print(self.allData)
 
 
     def calLane(self, position):
@@ -167,20 +180,38 @@ class Summoner:
         self.playedChampion = []
         champion = []
 
-        for x in range(len(self.seasonRankData['champions']) -1):
+        for x in range(len(self.seasonRankData['champions'])):
+
             if(self.seasonRankData['champions'][x]['id'] is 0):
                 continue
             else:
-                champion.append(mycommunication.getChampionInfo(self.seasonRankData['champions'][x]['id'], apiKey))
-                champion[x].append(round((self.seasonRankData['champions'][x]['stats']['totalChampionKills'] +
-                                       self.seasonRankData['champions'][x]['stats']['totalAssists']) /
-                                      self.seasonRankData['champions'][x]['stats']['totalDeathsPerSession'], 2))
-                champion[x].append(round(self.seasonRankData['champions'][x]['stats']['totalSessionsWon'] /
-                                      self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'] * 100))
+                #i = len(self.playedChampion) - 1
+                self.playedChampion.append(mycommunication.getChampionInfo(self.seasonRankData['champions'][x]['id'], apiKey))
 
-                self.playedChampion.append(champion)
+                try:
+                    self.playedChampion[x].append(round(self.seasonRankData['champions'][x]['stats']['totalSessionsWon'] / self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'] * 100))
+                except:
+                    self.playedChampion[x-1].append(round(self.seasonRankData['champions'][x]['stats']['totalSessionsWon'] / self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'] * 100))
+
+                if (self.seasonRankData['champions'][x]['stats']['totalDeathsPerSession'] != 0):
+                    try:
+                        self.playedChampion[x].append(round((self.seasonRankData['champions'][x]['stats']['totalChampionKills'] + self.seasonRankData['champions'][x]['stats']['totalAssists']) / self.seasonRankData['champions'][x]['stats']['totalDeathsPerSession'], 2))
+                    except:
+                            self.playedChampion[x-1].append(round((self.seasonRankData['champions'][x]['stats']['totalChampionKills'] + self.seasonRankData['champions'][x]['stats']['totalAssists']) / self.seasonRankData['champions'][x]['stats']['totalDeathsPerSession'], 2))
+                else:
+                    try:
+                        self.playedChampion[x].append('Perfect')
+                    except:
+                        self.playedChampion[x-1].append('Perfect')
+
+                try:
+                    self.playedChampion[x].append(self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'])
+                except:
+                    self.playedChampion[x-1].append(self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'])
+
 
         self.playedChampion = review.review(self.playedChampion)
+
         print(self.playedChampion)
 
 
@@ -299,7 +330,24 @@ class Summoner:
                 score += 1
 
 
-        print(self.allReviewString)
+        self.allData['comment'] = self.allReviewString
+        self.allData['grade'] = score
+
+        print(self.allData)
+
+class Database:
+    def __init__(self, summoner, tier, most, season):
+
+        sql = """
+        select exists (select * from userinfo where name = %(이름)s ) as success
+        """
+        curs.execute(query=sql, args={'이름': summoner['name']})
+        tmp.commit()
+
+        if(curs.fetchone()[0] == 0):
+            print("데이터 베이스에 존재하지 않음")
+        else:
+            print("데이터 베이스에 존재함.")
 
 
 if __name__ == "__main__":
