@@ -6,7 +6,7 @@ import pymysql
 from urllib import request, parse
 from collections import Counter
 
-apiKey = "RGAPI-0f10c455-7071-46ec-9e93-0d1a688198bc"
+apiKey = ""
 
 tmp = pymysql.connect(host='localhost', user='root', password='', db='concretejungle', charset='utf8')
 curs = tmp.cursor()
