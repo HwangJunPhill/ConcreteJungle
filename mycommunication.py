@@ -81,15 +81,4 @@ def recnetDict(url):
 
 
 if __name__ == '__main__':
-    req = urllib.request.Request("https://kr.api.riotgames.com/lol/static-data/v3/champions?locale=ko_KR&tags=tags&dataById=false&api_key=RGAPI-5fd912d9-7bb2-4910-b6fe-6da1f9277e00")
-
-    try:
-        dict = urllib.request.urlopen(req).read()
-    except urllib.error.HTTPError as e:
-        pass
-
-    dict = dict.decode(encoding='UTF-8')
-    dict = urllib.request.unquote(dict)
-
-    dict = json.loads(dict)
-
+    print(getChampionInfo(114, "RGAPI-0f10c455-7071-46ec-9e93-0d1a688198bc"))

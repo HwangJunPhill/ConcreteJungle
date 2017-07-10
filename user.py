@@ -8,31 +8,34 @@ from collections import Counter
 
 apiKey = "RGAPI-0f10c455-7071-46ec-9e93-0d1a688198bc"
 
-tmp = pymysql.connect(host='localhost', user='root', password='', db='concrete', charset='utf8')
+tmp = pymysql.connect(host='localhost', user='root', password='', db='concretejungle', charset='utf8')
 curs = tmp.cursor()
 
 
 class Summoner:
     def __init__(self, name):
         self.summonerId = 0
-        self.name = re.sub('[ ]', '', name).lower()
+        self.name = re.sub('[ `~!@#$%^&*()_+{}|[\:;<>,.?/\'\"＃＆＊＠§※☆★○●◎◇]', '', name).lower()
         self.totalRank = {}
 
         if(type(self.name) is str):
-            self.getSummonerInfo()
-            check = self.isRankPlayed()
-            if(check is False):
+            if( self.getSummonerInfo() is False):
                 return
+
+            if(self.isRankPlayed() is False):
+                return
+            self.getCurr()
             self.getTier()
             self.getRankMost()
             self.getAll()
+
             self.allReview()
             self.championReview()
 
-            dat = Database(self.summonerData, self.tier, self.mostArr, self.allData)
+            dat = Database(self.summonerData, self.tier, self.mostArr, self.allData, self.playedChampion)
+
         else:
             return
-
 
     def isRankPlayed(self):
         url = "https://kr.api.riotgames.com/api/lol/KR/v1.3/stats/by-summoner/{}/ranked?season=SEASON2017&api_key={}".format(self.summonerId, apiKey)
@@ -44,9 +47,7 @@ class Summoner:
         else:
             return True
 
-
     def getSummonerInfo(self):
-        print("-소환사 정보-")
 
         url = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/{}?api_key={}".format(urllib.request.quote(self.name), apiKey)
 
@@ -55,16 +56,14 @@ class Summoner:
         #존재하지 않는 소환사일 경우 404
         if(type(self.summonerData) is urllib.error.HTTPError):
             print("존재하지 않는 소환사")
-            return
+
+            return False
 
         self.summonerId = self.summonerData['id']
 
-        print(self.summonerData)
-
+        return True
 
     def getRankMost(self):
-        i = 0
-        print("-2017 시즌 랭크 게임 모스트-")
         mostCountArr = []
         self.mostArr = []
 
@@ -100,22 +99,13 @@ class Summoner:
                 if (len(self.mostArr) >= 9):
                     break
 
-
-        print(self.mostArr)
-
-
     def getTier(self):
-        print("-티어-")
 
         url = "https://kr.api.riotgames.com/lol/league/v3/positions/by-summoner/{}?api_key={}".format(self.summonerId, apiKey)
 
         self.tier = mycommunication.tierDict(url)
 
-        print(self.tier)
-
-
     def getAll(self):
-        print("-2017 시즌-")
         self.allData = {}
         self.visionAvg = 0.0
         self.position = []
@@ -152,7 +142,6 @@ class Summoner:
         self.allData['Lane'] = self.position
         self.allData['Totem'] = self.totemChanged
 
-
     def calLane(self, position):
         position = Counter(position)
         position = position.most_common()
@@ -166,15 +155,19 @@ class Summoner:
         elif(position[0][0]==4):
             return "bot"
 
-
-    def getRecent(self):
-        #게임중이면 championReview 아님 return
-        pass
-
-
     def getCurr(self):
-        pass
+        url = "https://kr.api.riotgames.com/observer-mode/rest/consumer/getSpectatorGameInfo/KR/{}?api_key={}".format(self.summonerId, apiKey)
 
+        self.curr = mycommunication.inputUrlreturnDict(url)
+
+        if(type(self.curr) is urllib.error.HTTPError):
+            self.summonerData['current'] = 'No'
+
+        else:
+            for x in range(len(self.curr['participants'])):
+                if (self.curr['participants'][x]['summonerName'] == self.summonerData['name']):
+                    self.summonerData['current'] = mycommunication.getChampionInfo(self.curr['participants'][x]['championId'], apiKey)[0]
+                    break
 
     def championReview(self):
         self.playedChampion = []
@@ -211,9 +204,6 @@ class Summoner:
 
 
         self.playedChampion = review.review(self.playedChampion)
-
-        print(self.playedChampion)
-
 
     def allReview(self):
         self.allReviewString = ""
@@ -333,24 +323,97 @@ class Summoner:
         self.allData['comment'] = self.allReviewString
         self.allData['grade'] = score
 
-        print(self.allData)
 
 class Database:
-    def __init__(self, summoner, tier, most, season):
+    def __init__(self, summoner, tier, most, season, champion):
+
+        self.summoner = summoner
+        self.tier = tier
+        self.most = most
+        self.season = season
+        self.champion = champion
 
         sql = """
         select exists (select * from userinfo where name = %(이름)s ) as success
         """
-        curs.execute(query=sql, args={'이름': summoner['name']})
-        tmp.commit()
+        curs.execute(query=sql, args={'이름': self.summoner['name']})
+
 
         if(curs.fetchone()[0] == 0):
-            print("데이터 베이스에 존재하지 않음")
+            self.insert()
+            print("추가")
         else:
+            self.update()
             print("데이터 베이스에 존재함.")
+
+        tmp.commit()
+
+    def insert(self):
+        sql = """
+        insert into userinfo (`name`, `summonerId`, `accountId`, `current`, `leagueName` ,`tier`, `rank`, `leaguePoints`,`veteran`, `most1`, `most1Rate`, `most1kda`, `most2`, `most2Rate`,
+        `most2kda`, `most3`, `most3Rate`, `most3kda`, `W`, `L`, `Rate`, `Score`, `Lane`, `Totem`, `Comment`, `Grade`)
+        values( %(name)s, %(summonerId)s, %(accountId)s, %(current)s, %(leagueName)s, %(tier)s, %(rank)s, %(leaguePoints)s, %(veteran)s, %(most1)s, %(most1Rate)s, %(most1kda)s, %(most2)s,
+        %(most2Rate)s, %(most2kda)s, %(most3)s, %(most3Rate)s, %(most3kda)s, %(W)s, %(L)s, %(Rate)s, %(Score)s, %(Lane)s, %(Totem)s, %(Comment)s, %(Grade)s)
+        """
+
+        curs.execute(query=sql, args={'name': self.summoner['name'], 'summonerId': self.summoner['id'], 'accountId': self.summoner['accountId'],
+                                      'leagueName':self.tier['leagueName'], 'current':self.summoner['current'], 'tier':self.tier['tier'], 'rank':self.tier['rank'], 'leaguePoints':self.tier['leaguePoints'],'veteran':self.tier['veteran'],
+                                      'most1':self.most[0], 'most1Rate':self.most[1], 'most1kda':self.most[2], 'most2':self.most[3], 'most2Rate':self.most[4],
+                                      'most2kda':self.most[5], 'most3':self.most[6], 'most3Rate':self.most[7], 'most3kda':self.most[8], 'W':self.season['W'],
+                                      'L':self.season['L'], 'Rate':self.season['Rate'], 'Score':self.season['Score'], 'Lane':self.season['Lane'], 'Totem':self.season['Totem'],
+                                      'Comment':self.season['comment'], 'Grade':self.season['grade']})
+
+
+        sql = """
+        insert into playedchampion (`Name`, `Champion`, `Rate`, `Score`, `Games`, `Comment`)
+        values (%(Name)s, %(Champion)s, %(Rate)s, %(Score)s, %(Games)s, %(Comment)s)
+        """
+
+        for x in range(len(self.champion)):
+            curs.execute(query=sql, args={'Name': self.summoner['name'], 'Champion': self.champion[x][0], 'Rate': self.champion[x][2], 'Score':self.champion[x][3], 'Games':self.champion[x][4], 'Comment':self.champion[x][5]})
+
+    def update(self):
+
+        sql = """
+        update userinfo set `current` = %(current)s, `leagueName` = %(leagueName)s, `tier` = %(tier)s, 
+        `rank` = %(rank)s, `leaguePoints` = %(leaguePoints)s,  `veteran` = %(veteran)s, 
+        `most1` = %(most1)s, `most1Rate` = %(most1Rate)s, `most1kda` = %(most1kda)s,
+        `most2` = %(most2)s, `most2Rate` = %(most2Rate)s, `most2kda` = %(most2kda)s,
+         `most3` = %(most3)s, `most3Rate` = %(most3Rate)s, `most3kda` = %(most3kda)s,
+         `W` = %(W)s, `L` = %(L)s, `Rate` = %(Rate)s, `Score` = %(Score)s, `Lane` = %(Lane)s,
+         `Totem` = %(Totem)s, `Comment` = %(Comment)s, `Grade` = %(grade)s where `name` = %(Name)s
+        """
+
+        curs.execute(query=sql, args={'current':self.summoner['current'], 'leagueName':self.tier['leagueName'], 'tier': self.tier['tier'],
+                                      'rank':self.tier['rank'], 'leaguePoints':self.tier['leaguePoints'],'veteran':self.tier['veteran'], 'most1':self.most[0], 'most1Rate':self.most[1],
+                                      'most1kda': self.most[2], 'most2':self.most[3], 'most2Rate':self.most[4], 'most2kda':self.most[5],
+                                      'most3':self.most[6], 'most3Rate':self.most[7], 'most3kda':self.most[8], 'W':self.season['W'],
+                                      'L':self.season['L'], 'Rate':self.season['Rate'], 'Score':self.season['Score'],
+                                      'Lane':self.season['Lane'], 'Totem':self.season['Totem'], 'Comment':self.season['comment'],
+                                      'grade':self.season['grade'], 'Name':self.summoner['name']})
+
+
+        sql = """
+        delete from playedchampion where Name = %(Name)s
+        """
+
+        curs.execute(query=sql, args={'Name':self.summoner['name']})
+
+
+        sql = """
+        insert into playedchampion (`Name`, `Champion`, `Rate`, `Score`, `Games`, `Comment`)
+        values (%(Name)s, %(Champion)s, %(Rate)s, %(Score)s, %(Games)s, %(Comment)s)
+        """
+
+        for x in range(len(self.champion)):
+            curs.execute(query=sql, args={'Name': self.summoner['name'], 'Champion': self.champion[x][0], 'Rate': self.champion[x][2], 'Score':self.champion[x][3], 'Games':self.champion[x][4], 'Comment':self.champion[x][5]})
+
+
 
 
 if __name__ == "__main__":
+
     while True:
         sumName = input()
         sum = Summoner(sumName)
+        del sum

@@ -6,7 +6,7 @@ def review(list):
         if list[x][3] == "Perfect":
             list[x][3] == 1000000
 
-        if list[x][4] < 20:
+        if list[x][4] < 10:
             string = "챔피언 플레이 수가 너무 적습니다."
 
         #전사
@@ -17,7 +17,7 @@ def review(list):
                 if list[x][3] >= 3:
                     string = "티모도 찢을 실력이군요. 짝짝짝."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "W와 패시브, 탱킹 능력을 활용한 무장색 패기."
+                    string = "W와 패시브, 탱킹 능력을 활용한 무장색 가렌."
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "텔타고 로밍와서 점화걸린 딸피 적한테 궁박고 집감."
 
@@ -37,63 +37,59 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "왜 W 쿨 도는걸 본적이 없지.."
 
+        #
         elif list[x][0] == "갱플랭크":
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "골 D 로져"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "귤을 껍질째 씹어드시네요."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "술통 두개 가까이 놔야 같이 터져요."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "괜히 술통 깐다고 깝치지 말고 뒤에서 딱총 쏘는게 훨씬 나아요."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "원피스 241화쯤 술집에서 루피한테 시비걸다가 고무고무 죽탱이 맞고 기절하는 역할."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "야이 십장생아 귤까라 그래 시베리아야!"
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "선장님.. 제발 다른 라인에도 궁좀 써주세요.."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "예라이 쌍화차야 시베리아 벌판에서 귤이나 까라!"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "술통 체력 두칸 남았는데 Q 쏨"
 
+        #
         elif list[x][0] == "그라가스":
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "술 흰긴수염 고래"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "주량 발로란 랭킹 1위"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "술에 물탔냐?"
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "BMI 40 이상, 비만3단계, 극심한 위험."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "챔피언과 소환사의 괴리감 제로."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "술먹고 게임하시나.."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "소환사가 그라가스보다 몸무게 더 나감."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "야 얘 취했다.. 눕히자..."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "아니 털렸으면 방템 좀 둘러봐요; 술통도 하나도 못맞추면서 딜 올리고 있어."
 
         elif list[x][0] == "나르":
 
@@ -124,34 +120,33 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     pass
 
+        #
         elif list[x][0] == "나서스":
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "아누비스"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "투견"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "딜 좀 그만 가"
+
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "잡종 똥개"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "Q로 미니언 찍으면 막타 강제로 아군 미니언한테 양보해줌."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "20분이 되도록 스택 150을 못쌓네.."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "스택 쌓다가 게임 끝남"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "[전체]적군 : 우리 원딜 스태틱 스택이 님 Q 스택보다 높음"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "텔타고 봇 로밍감 → 쇠약 걸고 걸어가다가 미니언 사이에 낑김 → 적군 놓치고 스택이나 쌓자며 미니언 침 → 그 스택 마저 못쌓고 집감"
 
         #
         elif list[x][0] == "다리우스":
@@ -160,13 +155,13 @@ def review(list):
                 if list[x][3] >= 3:
                     string = "진정한 탑솔러를 목도하라."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "Q 한바퀴 돌면 피흡오져서 더욱 듬직한형."
+                    string = "Q 한바퀴 돌면 피흡오져서 더욱 듬직한 형."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "궁 쓰다가 뒤질거 뻔하니까 그냥 몸만 대세요."
+                    string = "궁 쓰다가 뒤질거 뻔하니까 궁 찍지 말고 몸만 대세요."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    string = "한타때 궁킬딸 씹오짐."
+                    string = "한타때 궁킬딸 오짐."
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "궁으로 킬하면 미니언 공포걸리는게 멋있다구요? 그럼 궁으로 킬을 해보세요. 궁으로 실피만들고 패시브로 잡지말고."
                 elif list[x][3] >= 0 and list[x][3] < 2:
@@ -180,34 +175,33 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "제발 궁 믿고 라인 밀지 마세요; 갱오면 궁 쓰기 전에 죽잖아요."
 
+        #
         elif list[x][0] == "다이애나":
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "칼 든 아르테미스"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "세계 최고의 로얄 패밀리 다이애나"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "제발 억제기 밀때 딱 붙어서 치세요.. 억제기에 패시브 딜 들어가는거 몰랐죠?"
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "상대좀 보고 템 가세요. 아니 상대 제드인데 4코어 까지 존야를 안가면 어떡해요;"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "아니 RQ 막힌지가 언젠데 왜 실패하고 전챗으로 '?RQ 안됨' 이러고 있어요?"
+
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "킬각 나와서 Q 던졌는데 빗나가서 그냥 궁박았다가 역관광당함."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "패시브 믿고 백도하다가 게임 터짐."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "다이애나 1렙 W 찍어야죠.."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "몰락 가면 패시브도 빨리 돌고 피흡도 되는데 몰락 어떠세요?"
 
         elif list[x][0] == "럼블":
 
@@ -584,34 +578,32 @@ def review(list):
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     pass
 
+        #
         elif list[x][0] == "야스오":
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "내가 덜 죽는것 보다 내가 죽이는게 더 중요."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "딸피일때 정글몹에 E로 벽 넘으려다가 벽에 부딪히고 정글몹한테 사망."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "딸피 보이면 일단 점멸 EQ로 들어감."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "와드 안박고 라인 밈 (와드 있어도 못봄) → 적군들 쫓아옴 → 또 매드무비 생각나서 어찌어찌 에어본 띄움 → 궁 착지 하는 순간 사망"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "적진 한복판에 1인궁 박으면 기분 째지나요?"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "라인전에서 상대 갱왔을때 매드무비 봤던거 생각나서 에어컨 광고마냥 씽씽 E타다가 털림."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "스킬 맞고 장막 쓸거면 그냥 쓰지 마세요."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "소리에게 ~ ! 으.. 으악.."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "아군이 3인 에어본 띄워줘도 손 딸려서 궁 못씀."
 
         elif list[x][0] == "오공":
 
@@ -1230,21 +1222,21 @@ def review(list):
                 if list[x][3] >= 3:
                     string = "알파 한번에 cc기 세개 궁 두개 피함."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "그래도 방템 한두개 감."
+                    string = "그래도 방템 한두개 감 (밤의 끝자락, 수호천사)"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "정글 만 돔 → 카정당함 → 열심히 정글만 돔 → 적 정글 전장의 화신 → 그러나 아군 라인전 승리 → 적군끼리 전챗으로 싸우는거 정글몹 먹으면서 구경 → 게임 폭파"
+                    string = "정말.. 게임이 어떻게 돌아가던 자신의 본분을 잊지 않고 정글만 돌다니.. 대단하세요."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    string = "킬 먹고 명캔한다고 깝치다가 평타랑 명상 둘다 못씀. "
+                    string = "뒤쳐지지 말ㄱ.. 으아아아~~ "
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "캐리도 하고 똥도 싸는 마스터 이. (똥 싸는 횟수 >>> 캐리하는 횟수)"
+                    string = "제자인 오공이랑 같은 종족인가요?"
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     string = "아군 : 벌레가 겹눈이 많아서 징그럽네."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    string = "한타가 뭐임?"
+                    string = "한타가 뭐임? 갱은 또 뭐지?"
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "알파로 스킬 씹히는거 모름. 포탑 어그로 끌렸을때 달려나가다가 포탑 사거리 안에서 명상씀. "
                 elif list[x][3] >= 0 and list[x][3] < 2:
@@ -1443,11 +1435,11 @@ def review(list):
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
-                    string = "고립 아니면 안싸움."
+                    string = "고립 아니면 절대 안싸움. 평타도 안침."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    string = "여눈 가지 마세요 제발.. 적 유닛 없으면 W랑 E로 쌓을거에요?"
+                    string = "그냥 AP랑 탱템 간다음에 W로 피회복하고 몸이나 대는게 도움됨."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "님 진화 할줄 알죠? 아는데 왜그러지.."
+                    string = "님 진화 할줄 알죠? 진화 안하고 하는줄 알았어요 기록보고.."
 
         #
         elif list[x][0] == "카타리나":
@@ -3340,28 +3332,25 @@ def review(list):
 
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "갓 홍 철"
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "돌리고 돌리는 드레이븐"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "자숙의 시간이 필요할 것 같습니다."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
-                    pass
-
+                    string = "도끼 두개 돌린다고 까불다가 버벅대고 두개 다 놓침."
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "도끼 돌릴줄 몰라서 그냥 평타 치는게 더 쌤."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "궁 던지고 돌아오는거 맞추려고 무빙치는 동안은 공격 할줄 모름."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "다리우스가 널 보면 뭐라고 할까? 이 벌레야!"
                 elif list[x][3] >= 0 and list[x][3] < 2:
                     pass
 
@@ -3553,7 +3542,7 @@ def review(list):
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     string = "한타때 면전에다 궁써버리기~"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    string = "이즈로 어떻게 평점이 이따구지?"
+                    string = "비전을 쓰고 그랩을 맞습니다."
 
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
@@ -3605,7 +3594,6 @@ def review(list):
             if list[x][2] >= 60:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     pass
                 elif list[x][3] >= 0 and list[x][3] < 2:
@@ -3614,7 +3602,6 @@ def review(list):
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     pass
                 elif list[x][3] >= 0 and list[x][3] < 2:
@@ -3623,7 +3610,6 @@ def review(list):
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
                     pass
                 elif list[x][3] >= 0 and list[x][3] < 2:
@@ -3904,20 +3890,18 @@ def review(list):
             elif list[x][2] >= 50 and list[x][2] < 60:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "일부로 적이 안밟도록 삼각함수로 좌표 설정해서 버섯깔아요?"
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "어떻게 버섯을 그렇게 예술적으로 딱 붙여서 깔지.. 이것도 재능인가."
 
             elif list[x][2] < 50:
                 if list[x][3] >= 3:
                     pass
-
                 elif list[x][3] >= 2 and list[x][3] < 3:
-                    pass
+                    string = "빠개지마요; 듣는 아군도 돌아버려요."
                 elif list[x][3] >= 0 and list[x][3] < 2:
-                    pass
+                    string = "이런 티모 상대하고 싶다. 개찢어버리게."
 
 
         list[x].append(string)
