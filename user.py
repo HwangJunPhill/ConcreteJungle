@@ -5,15 +5,65 @@ import review
 import pymysql
 from urllib import request, parse
 from collections import Counter
+import time
+import threading
+import socket
 
 apiKey = ""
 
 tmp = pymysql.connect(host='localhost', user='root', password='', db='concretejungle', charset='utf8')
 curs = tmp.cursor()
+conList = []
+
+def accept():
+    while True:
+        conn, addr = s.accept()
+
+        conList.append(conn)
+
+        print(addr)
+        print(conList)
+
+        thread_get = threading.Thread(target= getmsg, args=[conn])
+        thread_get.start()
+
+
+def getmsg(conn):
+    while True:
+        try:
+            data = conn.recv(1024)
+        except ConnectionResetError as e:
+            print(conn)
+            print(e)
+            break
+
+
+        if data is None:
+            break
+        else:
+            data = data.decode("utf-8", "ignore")
+            # check = data.split(",")[0]
+            # print(check)
+
+            start(data, conn)
+    conn.close()
+
+
+def sendmsg(conn, data):
+    print(type(data))
+    #data = data.encode("utf-8")
+    conn.send(str.encode(data))
+
+    conn.close()
+
+
+def start(data, conn):
+    S = Summoner(data, conn)
+
 
 
 class Summoner:
-    def __init__(self, name):
+    def __init__(self, name, conn):
         self.summonerId = 0
         self.name = re.sub('[ `~!@#$%^&*()_+{}|[\:;<>,.?/\'\"＃＆＊＠§※☆★○●◎◇]', '', name).lower()
         self.totalRank = {}
@@ -34,15 +84,23 @@ class Summoner:
 
             dat = Database(self.summonerData, self.tier, self.mostArr, self.allData, self.playedChampion)
 
+            #클라이언트에 보내줄 것
+            data = "summoner_"+self.summonerData['name']+"_success_isPlaying:"+self.summonerData['current']
+            data = data.encode("utf-8")
+            conn.send(data)
+            print("summoner_"+self.summonerData['name']+"_success_isPlaying:"+self.summonerData['current'])
+
         else:
             return
+
 
     def isRankPlayed(self):
         url = "https://kr.api.riotgames.com/api/lol/KR/v1.3/stats/by-summoner/{}/ranked?season=SEASON2017&api_key={}".format(self.summonerId, apiKey)
         self.seasonRankData = mycommunication.inputUrlreturnDict(url)
 
-        if(type(self.seasonRankData) is urllib.error.HTTPError):
-            print("랭크 기록이 없습니다")
+        if(type(self.seasonRankData) is str):
+            #in this quest, 404 means rank record not exist
+            print(self.seasonRankData + "RANK_RECORD_NOT_EXIST]")
             return False
         else:
             return True
@@ -53,9 +111,10 @@ class Summoner:
 
         self.summonerData = mycommunication.inputUrlreturnDict(url)
 
-        #존재하지 않는 소환사일 경우 404
-        if(type(self.summonerData) is urllib.error.HTTPError):
-            print("존재하지 않는 소환사")
+        #in this case, 404 means summoner not exist
+        if(type(self.summonerData) is str):
+
+            print(self.summonerData +"SUMMONER_NOT_EXIST]")
 
             return False
 
@@ -68,13 +127,14 @@ class Summoner:
         self.mostArr = []
 
         #랭크 기록 리스트에 챔피언 '이름' 추가, 평점 추가. 모스트 픽 구하기 위해 경기 수 배열에 저장.
-        for x in range(len(self.seasonRankData['champions']) -1):
-            mostCountArr.append(self.seasonRankData['champions'][x]['stats']['totalSessionsPlayed'])
-            if(self.seasonRankData['champions'][x]['id'] is 0):
-                self.totalRank = self.seasonRankData['champions'][x]
-                mostCountArr.pop(x)
+
+
+        for x in self.seasonRankData['champions']:
+
+            if(x['id'] is 0):
+                self.totalRank = x
             else:
-                pass
+                mostCountArr.append(x['stats']['totalSessionsPlayed'])
 
 
         if(self.totalRank == {}):
@@ -160,14 +220,12 @@ class Summoner:
 
         self.curr = mycommunication.inputUrlreturnDict(url)
 
-        if(type(self.curr) is urllib.error.HTTPError):
+        if(type(self.curr) is str):
+            #In this case, 404 means this summoner is not playing game
             self.summonerData['current'] = 'No'
 
         else:
-            for x in range(len(self.curr['participants'])):
-                if (self.curr['participants'][x]['summonerName'] == self.summonerData['name']):
-                    self.summonerData['current'] = mycommunication.getChampionInfo(self.curr['participants'][x]['championId'], apiKey)[0]
-                    break
+            self.summonerData['current'] = 'Yes'
 
     def championReview(self):
         self.playedChampion = []
@@ -271,16 +329,16 @@ class Summoner:
                 self.allReviewString += "자기는 현지인 아니라는 생각을 가졌을 거라는게 진짜 너무 뻔하네요. 더럽고 끔찍하고 추악하고 혐오스러워요. 자기 주제를 알아야죠. "
                 score += 2
             elif(self.allData['Score'] >= 1 and self.allData['Score'] < 2):
-                self.allReviewString += "뭔 말을 하고 싶어도 한숨밖에 안나오네요 진짜. 에휴. 던지는척 하지 마요. 실력인거 다 아니까. 제발 롤 접어요. "
+                self.allReviewString += "기록이 너무 낮아서 라이엇도 눈 한번 비비고 다시 보겠다."
                 score += 1
             elif(self.allData['Score'] >= 0 and self.allData['Score'] < 1):
-                self.allReviewString += "진짜 롤의 암세포적인 존재. "
+                self.allReviewString += "뭔 말을 하고 싶어도 한숨밖에 안나오네요 진짜. 에휴. 던지는척 하지 마요. 실력인거 다 아니까. 제발 롤 접어요. "
                 score += 0
 
         self.allReviewString += "\n"
 
         if(self.allData['Totem'] >= 70):
-            self.allReviewString += "장신구 꽤 자주 바꾸는 것 같고. "
+            self.allReviewString += "장신구는 꽤 자주 바꾸는 것 같고.. "
             score += 5
             if(self.allData['Vision'] >= 20000):
                 self.allReviewString += "맵 상태 좀 좋겠네. "
@@ -289,8 +347,9 @@ class Summoner:
                 self.allReviewString += "하.. 자주 바꾸면 뭐해. 장신구 좀 자주 씁시다? 기껏 바꿨는데 썩혀두면 안좋잖아요? "
                 score += 3
             elif(self.allData['Vision'] < 15000):
-                self.allReviewString += "뒤지게 쳐맞아야 정신차리죠? 아이템 바꿀줄은 알고 쓸줄은 몰라요? 4번 키 빠졌어요? 해커가 해킹하고 장신구 단축키 바꿔놨어요? "
+                self.allReviewString += "뒤지게 쳐맞아야 정신차리죠? 아이템 바꿀줄은 알고 쓸줄은 몰라요? 4번 키 빠졌어요? "
                 score += 1
+
         elif (self.allData['Totem'] >= 50 and self.allData['Totem'] < 70):
             self.allReviewString += "한 30분쯤에 팀원이 패드립 섞어가면서 장신구 바꾸라고 하면 그때서야 바꾸는 타입인가. "
             score += 3
@@ -310,10 +369,10 @@ class Summoner:
             score += 1
 
             if(self.allData['Vision'] >= 20000):
-                self.allReviewString += "그나저나 와드 막타 진짜 잘 치나 보다 ㅋㅋㅋ "
+                self.allReviewString += "와드 피 1 남을때까지 안떄리고 있다가 막타 치는 장면이 눈에 선하다. "
                 score += 5
             elif(self.allData['Vision'] >= 15000 and self.allData['Vision'] < 20000):
-                self.allReviewString += "설정에서 미니맵 크기라도 최소로 하고 해요. 어차피 어두워서 보이지도 않을거 화면이라도 안가리게 "
+                self.allReviewString += "설정에서 미니맵 크기라도 최소로 하고 해요. 어차피 어두워서 보이지도 않을거 화면이라도 안가리게. "
                 score += 3
             elif(self.allData['Vision'] < 15000):
                 self.allReviewString += "리 신인가요? 앞이 보이지 않아도 불편할게 없다면 뭐 냅둘게요. "
@@ -334,9 +393,9 @@ class Database:
         self.champion = champion
 
         sql = """
-        select exists (select * from userinfo where name = %(이름)s ) as success
+        select exists (select * from userinfo where name = %(name)s ) as success
         """
-        curs.execute(query=sql, args={'이름': self.summoner['name']})
+        curs.execute(query=sql, args={'name': self.summoner['name']})
 
 
         if(curs.fetchone()[0] == 0):
@@ -350,14 +409,14 @@ class Database:
 
     def insert(self):
         sql = """
-        insert into userinfo (`name`, `summonerId`, `accountId`, `current`, `leagueName` ,`tier`, `rank`, `leaguePoints`,`veteran`, `most1`, `most1Rate`, `most1kda`, `most2`, `most2Rate`,
-        `most2kda`, `most3`, `most3Rate`, `most3kda`, `W`, `L`, `Rate`, `Score`, `Lane`, `Totem`, `Comment`, `Grade`)
-        values( %(name)s, %(summonerId)s, %(accountId)s, %(current)s, %(leagueName)s, %(tier)s, %(rank)s, %(leaguePoints)s, %(veteran)s, %(most1)s, %(most1Rate)s, %(most1kda)s, %(most2)s,
-        %(most2Rate)s, %(most2kda)s, %(most3)s, %(most3Rate)s, %(most3kda)s, %(W)s, %(L)s, %(Rate)s, %(Score)s, %(Lane)s, %(Totem)s, %(Comment)s, %(Grade)s)
+        insert into userinfo (`name`, `summonerId`, `accountId`, `leagueName` ,`tier`, `rank`, `leaguePoints`,`veteran`, `most1`, `most1Rate`, `most1kda`, `most2`, `most2Rate`,
+        `most2kda`, `most3`, `most3Rate`, `most3kda`, `W`, `L`, `Rate`, `Score`, `Lane`, `Totem`, `Comment`, `Grade`, `refreshTime`)
+        values( %(name)s, %(summonerId)s, %(accountId)s, %(leagueName)s, %(tier)s, %(rank)s, %(leaguePoints)s, %(veteran)s, %(most1)s, %(most1Rate)s, %(most1kda)s, %(most2)s,
+        %(most2Rate)s, %(most2kda)s, %(most3)s, %(most3Rate)s, %(most3kda)s, %(W)s, %(L)s, %(Rate)s, %(Score)s, %(Lane)s, %(Totem)s, %(Comment)s, %(Grade)s, curtime())
         """
 
         curs.execute(query=sql, args={'name': self.summoner['name'], 'summonerId': self.summoner['id'], 'accountId': self.summoner['accountId'],
-                                      'leagueName':self.tier['leagueName'], 'current':self.summoner['current'], 'tier':self.tier['tier'], 'rank':self.tier['rank'], 'leaguePoints':self.tier['leaguePoints'],'veteran':self.tier['veteran'],
+                                      'leagueName':self.tier['leagueName'], 'tier':self.tier['tier'], 'rank':self.tier['rank'], 'leaguePoints':self.tier['leaguePoints'],'veteran':self.tier['veteran'],
                                       'most1':self.most[0], 'most1Rate':self.most[1], 'most1kda':self.most[2], 'most2':self.most[3], 'most2Rate':self.most[4],
                                       'most2kda':self.most[5], 'most3':self.most[6], 'most3Rate':self.most[7], 'most3kda':self.most[8], 'W':self.season['W'],
                                       'L':self.season['L'], 'Rate':self.season['Rate'], 'Score':self.season['Score'], 'Lane':self.season['Lane'], 'Totem':self.season['Totem'],
@@ -375,16 +434,16 @@ class Database:
     def update(self):
 
         sql = """
-        update userinfo set `current` = %(current)s, `leagueName` = %(leagueName)s, `tier` = %(tier)s, 
+        update userinfo set `leagueName` = %(leagueName)s, `tier` = %(tier)s, 
         `rank` = %(rank)s, `leaguePoints` = %(leaguePoints)s,  `veteran` = %(veteran)s, 
         `most1` = %(most1)s, `most1Rate` = %(most1Rate)s, `most1kda` = %(most1kda)s,
         `most2` = %(most2)s, `most2Rate` = %(most2Rate)s, `most2kda` = %(most2kda)s,
          `most3` = %(most3)s, `most3Rate` = %(most3Rate)s, `most3kda` = %(most3kda)s,
          `W` = %(W)s, `L` = %(L)s, `Rate` = %(Rate)s, `Score` = %(Score)s, `Lane` = %(Lane)s,
-         `Totem` = %(Totem)s, `Comment` = %(Comment)s, `Grade` = %(grade)s where `name` = %(Name)s
+         `Totem` = %(Totem)s, `Comment` = %(Comment)s, `Grade` = %(grade)s, `refreshTime` = curtime() where `name` = %(Name)s
         """
 
-        curs.execute(query=sql, args={'current':self.summoner['current'], 'leagueName':self.tier['leagueName'], 'tier': self.tier['tier'],
+        curs.execute(query=sql, args={'leagueName':self.tier['leagueName'], 'tier': self.tier['tier'],
                                       'rank':self.tier['rank'], 'leaguePoints':self.tier['leaguePoints'],'veteran':self.tier['veteran'], 'most1':self.most[0], 'most1Rate':self.most[1],
                                       'most1kda': self.most[2], 'most2':self.most[3], 'most2Rate':self.most[4], 'most2kda':self.most[5],
                                       'most3':self.most[6], 'most3Rate':self.most[7], 'most3kda':self.most[8], 'W':self.season['W'],
@@ -413,7 +472,19 @@ class Database:
 
 if __name__ == "__main__":
 
+    # while True:
+    #     sumName = input()
+    #     sum = Summoner(sumName)
+
+
+    HOST = '127.0.0.1'
+    PORT = 9999
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((HOST, PORT))
+    s.listen(1)
+
+    threading._start_new_thread(accept, ())
+
+
     while True:
-        sumName = input()
-        sum = Summoner(sumName)
-        del sum
+        pass
