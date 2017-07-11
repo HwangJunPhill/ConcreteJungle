@@ -8,7 +8,15 @@ def inputUrlreturnDict(url):
     try:
         dict = urllib.request.urlopen(req).read()
     except urllib.error.HTTPError as e:
-        return e
+        err = ""
+        if e.code == 403:
+            #api key expired
+            err = "ERROR:1785:[KEY_EXPIRED]"
+            return err
+        if e.code == 404:
+            #bad request, not exists summoner
+            err = "ERROR:6974:[BAD_REQUEST_"
+            return err
 
     dict = dict.decode(encoding='UTF-8')
     dict = urllib.request.unquote(dict)
